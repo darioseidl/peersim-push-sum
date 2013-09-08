@@ -18,7 +18,7 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 
 	private final int step;
 	private double trueValue;
-	private double value;
+	private double estimate;
 	private boolean initiated = false;
 
 	public PushPullED(String prefix)
@@ -39,11 +39,13 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 			initiated = false;
 			return;
 		}
+
 		else if (event instanceof InitializationMessage)
 		{
 			int delay = CommonState.r.nextInt(step / 2);
 			EDSimulator.add(delay, new TimerMessage(), self, protocolID);
 		}
+
 		else if (event instanceof TimerMessage)
 		{
 			Node neighbor = ProtocolUtils.getRandomNeighbor(self, protocolID);
@@ -53,13 +55,14 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 				EDSimulator.add(step / 4, null, self, protocolID);
 
 				initiated = true;
-				ValueSenderMessage request = new ValueSenderMessage(initiated, self, value);
+				ValueSenderMessage request = new ValueSenderMessage(initiated, self, estimate);
 				Transport transport = (Transport) self.getProtocol(FastConfig.getTransport(protocolID));
 				transport.send(self, neighbor, request, protocolID);
 
 				EDSimulator.add(step, event, self, protocolID);
 			}
 		}
+
 		else if (event instanceof ValueSenderMessage)
 		{
 			ValueSenderMessage msg = (ValueSenderMessage) event;
@@ -73,15 +76,15 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 
 				double temp = msg.getValue();
 
-				ValueSenderMessage request = new ValueSenderMessage(initiated, self, value);
+				ValueSenderMessage request = new ValueSenderMessage(initiated, self, estimate);
 				Transport transport = (Transport) self.getProtocol(FastConfig.getTransport(protocolID));
 				transport.send(self, msg.getSender(), request, protocolID);
 
-				value = (temp + value) / 2;
+				estimate = (temp + estimate) / 2;
 			}
 			else
 			{
-				value = (msg.getValue() + value) / 2;
+				estimate = (msg.getValue() + estimate) / 2;
 				initiated = false;
 			}
 		}
@@ -94,32 +97,15 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 	}
 
 	@Override
-	public double getValue()
-	{
-		return value;
-	}
-
-	@Override
-	public void setValue(double value)
-	{
-		this.trueValue = value;
-		this.value = value;
-	}
-
-	@Override
-	public void setWeight(double weight)
-	{}
-
-	@Override
-	public double getWeight()
-	{
-		return Double.NaN;
-	}
-
-	@Override
 	public double getEstimate()
 	{
-		return value;
+		return estimate;
+	}
+
+	public void initialize(double value)
+	{
+		this.trueValue = value;
+		this.estimate = value;
 	}
 
 	@Override

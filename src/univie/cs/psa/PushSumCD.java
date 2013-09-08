@@ -2,8 +2,8 @@ package univie.cs.psa;
 
 import peersim.cdsim.CDProtocol;
 import peersim.core.Node;
-import univie.cs.psa.utils.ProtocolUtils;
 import univie.cs.psa.utils.AggregationProtocol;
+import univie.cs.psa.utils.ProtocolUtils;
 
 public class PushSumCD implements AggregationProtocol, CDProtocol
 {
@@ -26,11 +26,11 @@ public class PushSumCD implements AggregationProtocol, CDProtocol
 		{
 			PushSumCD neighborProtocol = (PushSumCD) neighbor.getProtocol(protocolID);
 
-			//send to self
+			//send half of value and weight to self
 			valueBuffer += value / 2;
 			weightBuffer += weight / 2;
 
-			//send to neighbor
+			//send half of value and weight to a random neighbor
 			neighborProtocol.valueBuffer += value / 2;
 			neighborProtocol.weightBuffer += weight / 2;
 		}
@@ -52,36 +52,22 @@ public class PushSumCD implements AggregationProtocol, CDProtocol
 	}
 
 	@Override
-	public double getValue()
+	public double getEstimate()
 	{
-		return value;
+		return (value == 0.) ? 0. : value / weight;
 	}
 
-	@Override
-	public void setValue(double value)
+	public void initializeValue(double value)
 	{
 		this.trueValue = value;
 		this.value = value;
 		valueBuffer = value;
 	}
 
-	@Override
-	public double getWeight()
-	{
-		return weight;
-	}
-
-	@Override
-	public void setWeight(double weight)
+	public void initializeWeight(double weight)
 	{
 		this.weight = weight;
 		weightBuffer = weight;
-	}
-
-	@Override
-	public double getEstimate()
-	{
-		return (value == 0.) ? 0. : value / weight;
 	}
 
 	@Override

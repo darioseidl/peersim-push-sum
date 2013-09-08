@@ -7,9 +7,9 @@ import peersim.core.Node;
 import peersim.edsim.EDProtocol;
 import peersim.edsim.EDSimulator;
 import peersim.transport.Transport;
+import univie.cs.psa.msg.InitializationMessage;
 import univie.cs.psa.msg.TimerMessage;
 import univie.cs.psa.msg.ValueWeightMessage;
-import univie.cs.psa.msg.InitializationMessage;
 import univie.cs.psa.utils.AggregationProtocol;
 import univie.cs.psa.utils.ProtocolUtils;
 
@@ -43,7 +43,8 @@ public class PushSumED implements AggregationProtocol, EDProtocol
 		if (event instanceof InitializationMessage)
 		{
 			//initialize weight
-			setWeight(((InitializationMessage) event).getWeight());
+			weight = ((InitializationMessage) event).getWeight();
+			weightBuffer = weight;
 
 			//start periodic notification after a random delay
 			int delay = CommonState.r.nextInt(step / 2);
@@ -90,36 +91,16 @@ public class PushSumED implements AggregationProtocol, EDProtocol
 	}
 
 	@Override
-	public double getValue()
+	public double getEstimate()
 	{
-		return value;
+		return value / weight;
 	}
 
-	@Override
-	public void setValue(double value)
+	public void initializeValue(double value)
 	{
 		this.trueValue = value;
 		this.value = value;
 		valueBuffer = value;
-	}
-
-	@Override
-	public double getWeight()
-	{
-		return weight;
-	}
-
-	@Override
-	public void setWeight(double weight)
-	{
-		this.weight = weight;
-		weightBuffer = weight;
-	}
-
-	@Override
-	public double getEstimate()
-	{
-		return value / weight;
 	}
 
 	@Override

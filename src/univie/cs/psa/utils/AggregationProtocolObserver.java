@@ -86,22 +86,18 @@ public class AggregationProtocolObserver implements Control
 			trueValues.addValue(protocol.getTrueValue());
 		}
 
-		FormattedStatistics values = new FormattedStatistics();
-		FormattedStatistics weights = new FormattedStatistics();
 		FormattedStatistics estimates = new FormattedStatistics();
 		FormattedStatistics errors = new FormattedStatistics();
 
 		for (int i = 0; i < Network.size(); i++)
 		{
 			AggregationProtocol protocol = (AggregationProtocol) Network.get(i).getProtocol(protocolID);
-			values.addValue(protocol.getValue());
-			weights.addValue(protocol.getWeight());
 			estimates.addValue(protocol.getEstimate());
 			errors.addValue(protocol.getEstimate() - trueValues.getMean());
 		}
 
-		System.out.format("%16d %16s %s%n%16s %16s %s%n%16s %16s %s%n%16s %16s %s%n%16s %16s %s%n%n", time, "true:", trueValues, "",
-				"value:", values, "", "weight:", weights, "", "estimate:", estimates, "", "errors:", errors);
+		System.out.format("%16d %16s %s%n%16s %16s %s%n%16s %16s %s%n%n", time, "true:", trueValues, "", "estimate:", estimates, "",
+				"errors:", errors);
 
 		return !Double.isInfinite(estimates.getMax()) && estimates.getVariance() <= precision;
 	}

@@ -16,28 +16,6 @@ public interface AggregationProtocol
 	public double getTrueValue();
 
 	/**
-	 * Sets the value. The meaning of the value depends entirely on the
-	 * implementation of the protocol.
-	 */
-	public void setValue(double value);
-
-	/**
-	 * Returns the value.
-	 */
-	public double getValue();
-
-	/**
-	 * Sets the weight. The meaning of the weight depends entirely on the
-	 * implementation of the protocol.
-	 */
-	public void setWeight(double weight);
-
-	/**
-	 * Returns the weight.
-	 */
-	public double getWeight();
-
-	/**
 	 * Returns an estimation of the aggregate over all nodes.
 	 */
 	public double getEstimate();

@@ -8,7 +8,7 @@ import univie.cs.psa.utils.ProtocolUtils;
 public class PushPullCD implements AggregationProtocol, CDProtocol
 {
 	private double trueValue;
-	private double value;
+	private double estimate;
 
 	public PushPullCD(String prefix)
 	{}
@@ -22,9 +22,10 @@ public class PushPullCD implements AggregationProtocol, CDProtocol
 		{
 			PushPullCD neighborProtocol = (PushPullCD) neighbor.getProtocol(protocolID);
 
-			double mean = (this.value + neighborProtocol.value) / 2;
-			this.value = mean;
-			neighborProtocol.value = mean;
+			//set the estimate of self and neighbor to the mean of the current estimates
+			double mean = (this.estimate + neighborProtocol.estimate) / 2;
+			this.estimate = mean;
+			neighborProtocol.estimate = mean;
 		}
 	}
 
@@ -35,32 +36,15 @@ public class PushPullCD implements AggregationProtocol, CDProtocol
 	}
 
 	@Override
-	public double getValue()
-	{
-		return value;
-	}
-
-	@Override
-	public void setValue(double value)
-	{
-		this.trueValue = value;
-		this.value = value;
-	}
-
-	@Override
-	public double getWeight()
-	{
-		return Double.NaN;
-	}
-
-	@Override
-	public void setWeight(double weight)
-	{}
-
-	@Override
 	public double getEstimate()
 	{
-		return value;
+		return estimate;
+	}
+
+	public void initialize(double value)
+	{
+		this.trueValue = value;
+		this.estimate = value;
 	}
 
 	@Override
