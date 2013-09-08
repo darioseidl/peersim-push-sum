@@ -8,16 +8,35 @@ import peersim.config.Configuration;
 import peersim.graph.GraphIO;
 import peersim.reports.GraphObserver;
 
+/**
+ * An extension of {@link peersim.reports.GraphObserver} to save the network
+ * graph to a .dot file, intended for plotting with Graphviz.<br/>
+ * <br/>
+ * This control expects the following parameters in the configuration file:
+ * <blockquote><code>filename</code> - the name of the .dot file written by this
+ * class.<br/>
+ * </blockquote>
+ * 
+ * @author Dario Seidl
+ * 
+ */
 public class GraphWriter extends GraphObserver
 {
 	private static final String PAR_FILENAME = "filename";
 
 	private final String filename;
 
-	public GraphWriter(String name)
+	/**
+	 * The standard constructor called by the simulator, reading parameters from
+	 * the configuration file.
+	 * 
+	 * @param prefix
+	 *            The prefix for this control in the configuration file.
+	 */
+	public GraphWriter(String prefix)
 	{
-		super(name);
-		filename = Configuration.getString(name + "." + PAR_FILENAME);
+		super(prefix);
+		filename = Configuration.getString(prefix + "." + PAR_FILENAME);
 	}
 
 	@Override
