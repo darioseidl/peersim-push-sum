@@ -11,9 +11,9 @@ import univie.cs.psa.edutils.TimerMessage;
 import univie.cs.psa.edutils.ValueWeightMessage;
 import univie.cs.psa.edutils.WeightMessage;
 import univie.cs.psa.utils.ProtocolUtils;
-import univie.cs.psa.utils.ValueWeight;
+import univie.cs.psa.utils.AggregationProtocol;
 
-public class PushSumED implements ValueWeight, EDProtocol
+public class PushSumED implements AggregationProtocol, EDProtocol
 {
 	private static final String PAR_STEP = "step";
 

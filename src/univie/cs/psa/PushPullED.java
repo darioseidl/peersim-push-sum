@@ -10,9 +10,9 @@ import peersim.transport.Transport;
 import univie.cs.psa.edutils.TimerMessage;
 import univie.cs.psa.edutils.WeightMessage;
 import univie.cs.psa.utils.ProtocolUtils;
-import univie.cs.psa.utils.ValueWeight;
+import univie.cs.psa.utils.AggregationProtocol;
 
-public class PushPullED implements ValueWeight, EDProtocol
+public class PushPullED implements AggregationProtocol, EDProtocol
 {
 	private static final String PAR_STEP = "step";
 

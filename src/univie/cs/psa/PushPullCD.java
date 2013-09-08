@@ -21,9 +21,9 @@ package univie.cs.psa;
 import peersim.cdsim.CDProtocol;
 import peersim.core.Node;
 import univie.cs.psa.utils.ProtocolUtils;
-import univie.cs.psa.utils.ValueWeight;
+import univie.cs.psa.utils.AggregationProtocol;
 
-public class PushPullCD implements ValueWeight, CDProtocol
+public class PushPullCD implements AggregationProtocol, CDProtocol
 {
 	private double trueValue;
 	private double value;
