@@ -7,10 +7,10 @@ import peersim.core.Node;
 import peersim.edsim.EDProtocol;
 import peersim.edsim.EDSimulator;
 import peersim.transport.Transport;
+import univie.cs.psa.msg.InitializationMessage;
 import univie.cs.psa.msg.TimerMessage;
-import univie.cs.psa.msg.WeightMessage;
-import univie.cs.psa.utils.ProtocolUtils;
 import univie.cs.psa.utils.AggregationProtocol;
+import univie.cs.psa.utils.ProtocolUtils;
 
 public class PushPullED implements AggregationProtocol, EDProtocol
 {
@@ -25,9 +25,9 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 	{
 		step = Configuration.getInt(prefix + "." + PAR_STEP);
 
-		if (step % 2 != 0)
+		if (step % 4 != 0)
 		{
-			throw new IllegalArgumentException("step must be divisble by 2.");
+			throw new IllegalArgumentException("step must be divisble by 4.");
 		}
 	}
 
@@ -39,7 +39,7 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 			initiated = false;
 			return;
 		}
-		else if (event instanceof WeightMessage)
+		else if (event instanceof InitializationMessage)
 		{
 			int delay = CommonState.r.nextInt(step / 2);
 			EDSimulator.add(delay, new TimerMessage(), self, protocolID);

@@ -9,9 +9,9 @@ import peersim.edsim.EDSimulator;
 import peersim.transport.Transport;
 import univie.cs.psa.msg.TimerMessage;
 import univie.cs.psa.msg.ValueWeightMessage;
-import univie.cs.psa.msg.WeightMessage;
-import univie.cs.psa.utils.ProtocolUtils;
+import univie.cs.psa.msg.InitializationMessage;
 import univie.cs.psa.utils.AggregationProtocol;
+import univie.cs.psa.utils.ProtocolUtils;
 
 public class PushSumED implements AggregationProtocol, EDProtocol
 {
@@ -39,15 +39,18 @@ public class PushSumED implements AggregationProtocol, EDProtocol
 	@Override
 	public void processEvent(Node self, int protocolID, Object event)
 	{
-		if (event instanceof WeightMessage)
+		//an initialization message from the boot node
+		if (event instanceof InitializationMessage)
 		{
-			WeightMessage message = (WeightMessage) event;
+			//initialize weight
+			setWeight(((InitializationMessage) event).getWeight());
 
-			setWeight(message.getWeight());
-
+			//start periodic notification after a random delay
 			int delay = CommonState.r.nextInt(step / 2);
 			EDSimulator.add(delay, new TimerMessage(), self, protocolID);
 		}
+
+		//a message from a neighbor
 		else if (event instanceof ValueWeightMessage)
 		{
 			ValueWeightMessage message = (ValueWeightMessage) event;
@@ -55,6 +58,8 @@ public class PushSumED implements AggregationProtocol, EDProtocol
 			valueBuffer += message.getValue();
 			weightBuffer += message.getWeight();
 		}
+
+		//a timer message from self, signalling the start of a new cycle
 		else if (event instanceof TimerMessage)
 		{
 			Node neighbor = ProtocolUtils.getRandomNeighbor(self, protocolID);

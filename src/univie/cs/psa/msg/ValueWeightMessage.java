@@ -1,5 +1,11 @@
 package univie.cs.psa.msg;
 
+/**
+ * A message carrying a value and a weight as used in the Push-Sum algorithm.
+ * 
+ * @author Dario Seidl
+ * 
+ */
 public class ValueWeightMessage
 {
 	private final double value;
