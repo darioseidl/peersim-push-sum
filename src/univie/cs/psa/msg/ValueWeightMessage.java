@@ -1,4 +1,4 @@
-package univie.cs.psa.edutils;
+package univie.cs.psa.msg;
 
 public class ValueWeightMessage
 {

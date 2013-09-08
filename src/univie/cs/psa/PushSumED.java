@@ -7,9 +7,9 @@ import peersim.core.Node;
 import peersim.edsim.EDProtocol;
 import peersim.edsim.EDSimulator;
 import peersim.transport.Transport;
-import univie.cs.psa.edutils.TimerMessage;
-import univie.cs.psa.edutils.ValueWeightMessage;
-import univie.cs.psa.edutils.WeightMessage;
+import univie.cs.psa.msg.TimerMessage;
+import univie.cs.psa.msg.ValueWeightMessage;
+import univie.cs.psa.msg.WeightMessage;
 import univie.cs.psa.utils.ProtocolUtils;
 import univie.cs.psa.utils.AggregationProtocol;
 
