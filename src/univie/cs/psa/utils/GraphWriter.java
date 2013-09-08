@@ -9,8 +9,8 @@ import peersim.graph.GraphIO;
 import peersim.reports.GraphObserver;
 
 /**
- * An extension of {@link peersim.reports.GraphObserver} to save the network
- * graph to a .dot file, intended for plotting with Graphviz.<br/>
+ * An extension of {@link GraphObserver} to save the network graph to a .dot
+ * file, intended for plotting with Graphviz.<br/>
  * <br/>
  * This control expects the following parameters in the configuration file:
  * <blockquote><code>filename</code> - the name of the .dot file written by this

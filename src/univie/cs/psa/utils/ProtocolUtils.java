@@ -19,7 +19,7 @@ public class ProtocolUtils
 	 * @param self
 	 *            The calling node.
 	 * @param protocolID
-	 *            The ID of the {@link peersim.core.Linkable} protocol to use.
+	 *            The ID of the {@link Linkable} protocol to use.
 	 * @return A randomly selected node from the neighbors of <code>self</code>,
 	 *         or <code>null</code> if <code>self</code> has no neighbors or the
 	 *         chosen neighbor is down.

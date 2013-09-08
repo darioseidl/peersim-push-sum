@@ -6,12 +6,12 @@ import peersim.core.Linkable;
 import peersim.core.Network;
 import peersim.core.Node;
 import peersim.dynamics.NodeInitializer;
+import peersim.dynamics.RandNI;
 
 /**
- * A {@link peersim.dynamics.NodeInitializer} creating a given number of random
- * undirectional links for a node. This class does exactly the same as
- * {@link peersim.dynamics.RandNI}, except that the created links are
- * undirectional.<br/>
+ * A {@link NodeInitializer} creating a given number of random undirectional
+ * links for a node. This class does exactly the same as {@link RandNI}, except
+ * that the created links are undirectional.<br/>
  * <br/>
  * This control expects the following parameters in the configuration file:
  * <blockquote><code>protocol</code> - the name of the protocol to wire<br/>
