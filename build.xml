@@ -7,11 +7,11 @@
 	
     <path id="classpath">
         <pathelement location="bin"/>
-        <pathelement location="lib/peersim-1.0.5/peersim-1.0.5.jar"/>
+		<pathelement location="lib/commons-io-2.4/commons-io-2.4.jar"/>
+		<pathelement location="lib/commons-math3-3.2/commons-math3-3.2.jar"/>
+    	<pathelement location="lib/peersim-1.0.5/peersim-1.0.5.jar"/>
     	<pathelement location="lib/peersim-1.0.5/djep-1.0.0.jar"/>
         <pathelement location="lib/peersim-1.0.5/jep-2.3.0.jar"/>
-        <pathelement location="lib/commons-io-2.4/commons-io-2.4.jar"/>
-        <pathelement location="lib/commons-math3-3.2/commons-math3-3.2.jar"/>
     </path>
 
 	<!-- === clean targets === -->
@@ -37,7 +37,11 @@
     </target>
 	
 	<target name="docs" depends="build" description="Create the Javadoc.">
-		<javadoc classpathref="classpath" packagenames="*" sourcepath="src" destdir="doc"/>
+		<javadoc classpathref="classpath" packagenames="*" sourcepath="src" destdir="doc">
+			<link href="http://commons.apache.org/proper/commons-io/javadocs/api-2.4/"/>
+			<link href="http://commons.apache.org/proper/commons-math/javadocs/api-3.2/"/>
+			<link href="http://peersim.sourceforge.net/doc/"/>
+		</javadoc>
 	</target>
 	
 	<!-- === example run targets === -->
