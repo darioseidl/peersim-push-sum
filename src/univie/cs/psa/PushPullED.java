@@ -2,12 +2,10 @@ package univie.cs.psa;
 
 import peersim.config.Configuration;
 import peersim.config.FastConfig;
-import peersim.core.CommonState;
 import peersim.core.Node;
 import peersim.edsim.EDProtocol;
 import peersim.edsim.EDSimulator;
 import peersim.transport.Transport;
-import univie.cs.psa.msg.InitializationMessage;
 import univie.cs.psa.msg.TimerMessage;
 import univie.cs.psa.utils.AggregationProtocol;
 import univie.cs.psa.utils.ProtocolUtils;
@@ -34,16 +32,11 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 	@Override
 	public void processEvent(Node self, int protocolID, Object event)
 	{
+		//TODO what is the deal with initiated???
 		if (event == null)
 		{
 			initiated = false;
 			return;
-		}
-
-		else if (event instanceof InitializationMessage)
-		{
-			int delay = CommonState.r.nextInt(step / 2);
-			EDSimulator.add(delay, new TimerMessage(), self, protocolID);
 		}
 
 		else if (event instanceof TimerMessage)
@@ -58,9 +51,9 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 				ValueSenderMessage request = new ValueSenderMessage(initiated, self, estimate);
 				Transport transport = (Transport) self.getProtocol(FastConfig.getTransport(protocolID));
 				transport.send(self, neighbor, request, protocolID);
-
-				EDSimulator.add(step, event, self, protocolID);
 			}
+
+			EDSimulator.add(step, event, self, protocolID);
 		}
 
 		else if (event instanceof ValueSenderMessage)
@@ -108,6 +101,7 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 		this.estimate = value;
 	}
 
+	//TODO is it necessary to copy members in clone???
 	@Override
 	public Object clone()
 	{

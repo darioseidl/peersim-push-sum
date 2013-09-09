@@ -97,11 +97,11 @@
 		</antcall>
 		<antcall target="-sim">
 			<param name="algo" value="pp-ed"/>
-			<param name="init" value="weights"/>
+			<param name="init" value="timer"/>
 		</antcall>
 		<antcall target="-sim">
 			<param name="algo" value="ps-ed"/>
-			<param name="init" value="weights"/>
+			<param name="init" value="weights timer"/>
 		</antcall>
 		<exec executable="gnuplot" osfamily="unix">
 			<arg line="-e &quot;IMG='${img}';TERM='${ext}';DATA_PP_CD='${prefix}-pp-cd.data';DATA_PS_CD='${prefix}-ps-cd.data';DATA_PP_ED='${prefix}-pp-ed.data';DATA_PS_ED='${prefix}-ps-ed.data';TITLE='${title}';XLABEL='${xlabel}';XCOL=${xcolumn};STEPSIZE=1000&quot; plot.p"/>

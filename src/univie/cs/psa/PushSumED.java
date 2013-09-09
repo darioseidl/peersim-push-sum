@@ -2,12 +2,10 @@ package univie.cs.psa;
 
 import peersim.config.Configuration;
 import peersim.config.FastConfig;
-import peersim.core.CommonState;
 import peersim.core.Node;
 import peersim.edsim.EDProtocol;
 import peersim.edsim.EDSimulator;
 import peersim.transport.Transport;
-import univie.cs.psa.msg.InitializationMessage;
 import univie.cs.psa.msg.TimerMessage;
 import univie.cs.psa.msg.ValueWeightMessage;
 import univie.cs.psa.utils.AggregationProtocol;
@@ -39,29 +37,8 @@ public class PushSumED implements AggregationProtocol, EDProtocol
 	@Override
 	public void processEvent(Node self, int protocolID, Object event)
 	{
-		//an initialization message from the boot node
-		if (event instanceof InitializationMessage)
-		{
-			//initialize weight
-			weight = ((InitializationMessage) event).getWeight();
-			weightBuffer = weight;
-
-			//start periodic notification after a random delay
-			int delay = CommonState.r.nextInt(step / 2);
-			EDSimulator.add(delay, new TimerMessage(), self, protocolID);
-		}
-
-		//a message from a neighbor
-		else if (event instanceof ValueWeightMessage)
-		{
-			ValueWeightMessage message = (ValueWeightMessage) event;
-
-			valueBuffer += message.getValue();
-			weightBuffer += message.getWeight();
-		}
-
-		//a timer message from self, signalling the start of a new cycle
-		else if (event instanceof TimerMessage)
+		//a timer message signalling the start of a new cycle
+		if (event instanceof TimerMessage)
 		{
 			Node neighbor = ProtocolUtils.getRandomNeighbor(self, protocolID);
 
@@ -78,9 +55,19 @@ public class PushSumED implements AggregationProtocol, EDProtocol
 				//send to neighbor
 				Transport transport = (Transport) self.getProtocol(FastConfig.getTransport(protocolID));
 				transport.send(self, neighbor, new ValueWeightMessage(value / 2, weight / 2), protocolID);
+
 			}
 
-			EDSimulator.add(step, event, self, protocolID);
+			EDSimulator.add(step, new TimerMessage(), self, protocolID);
+
+		}
+		//a message from a neighbor
+		else if (event instanceof ValueWeightMessage)
+		{
+			ValueWeightMessage message = (ValueWeightMessage) event;
+
+			valueBuffer += message.getValue();
+			weightBuffer += message.getWeight();
 		}
 	}
 
@@ -98,9 +85,15 @@ public class PushSumED implements AggregationProtocol, EDProtocol
 
 	public void initializeValue(double value)
 	{
-		this.trueValue = value;
+		trueValue = value;
 		this.value = value;
 		valueBuffer = value;
+	}
+
+	public void initializeWeight(double weight)
+	{
+		this.weight = weight;
+		weightBuffer = weight;
 	}
 
 	@Override

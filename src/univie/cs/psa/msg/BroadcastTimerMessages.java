@@ -19,7 +19,7 @@ import peersim.transport.Transport;
  * @author Dario Seidl
  * 
  */
-public class BroadcastInitializationMessages implements Control
+public class BroadcastTimerMessages implements Control
 {
 	private static final String PAR_PROT = "protocol";
 
@@ -32,7 +32,7 @@ public class BroadcastInitializationMessages implements Control
 	 * @param prefix
 	 *            The prefix for this control in the configuration file.
 	 */
-	public BroadcastInitializationMessages(String prefix)
+	public BroadcastTimerMessages(String prefix)
 	{
 		protocolID = Configuration.getPid(prefix + "." + PAR_PROT);
 	}
@@ -48,7 +48,7 @@ public class BroadcastInitializationMessages implements Control
 		for (int i = 0; i < Network.size(); i++)
 		{
 			Transport transport = (Transport) Network.get(i).getProtocol(FastConfig.getTransport(protocolID));
-			transport.send(root, Network.get(i), new InitializationMessage(1.0), protocolID);
+			transport.send(root, Network.get(i), new TimerMessage(), protocolID);
 		}
 
 		return false;
