@@ -121,7 +121,7 @@
 			<param name="title" value="Fully Connected"/>
 			<param name="xlabel" value="nodes"/>
 			<param name="xcolumn" value="2"/>
-		    <param name="noderange" value="8:256|*2" />
+		    <param name="noderange" value="8:128|*2" />
 			<param name="clusterrange" value="1" />
 			<param name="wire" value="wire_fc"/>
 			<param name="dist" value="dist_lin"/>
@@ -136,7 +136,7 @@
 			<param name="title" value="k-Out"/>
 			<param name="xlabel" value="nodes"/>
 			<param name="xcolumn" value="2"/>
-		    <param name="noderange" value="8:256|*2" />
+		    <param name="noderange" value="8:128|*2" />
 			<param name="clusterrange" value="1" />
 			<param name="wire" value="wire_kout"/>
 			<param name="dist" value="dist_lin"/>
@@ -151,7 +151,7 @@
 			<param name="title" value="4 Clusters; x Nodes"/>
 			<param name="xlabel" value="nodes"/>
 			<param name="xcolumn" value="2"/>
-		    <param name="noderange" value="8:256|*2" />
+		    <param name="noderange" value="8:128|*2" />
 			<param name="clusterrange" value="4" />
 			<param name="wire" value="wire_cl"/>
 			<param name="dist" value="dist_lin"/>

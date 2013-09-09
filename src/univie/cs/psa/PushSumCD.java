@@ -2,9 +2,24 @@ package univie.cs.psa;
 
 import peersim.cdsim.CDProtocol;
 import peersim.core.Node;
+import peersim.vector.VectControl;
 import univie.cs.psa.utils.AggregationProtocol;
 import univie.cs.psa.utils.ProtocolUtils;
 
+/**
+ * Cycle-driven Push-Sum.<br/>
+ * <br/>
+ * In each cycle a node sends half of it's value and half of it's weight to a
+ * randomly selected neighbor and to itself. In the cycle driven implementation,
+ * instead of sending a message we write directly into the buffers of the
+ * receiving node.<br/>
+ * Afterwards all nodes sum up the received values. Since this has to happen
+ * after all the values have been exchanged, we implement this as a seperate
+ * control class {@link PushSumCDUpdate}, that is executed after each cycle.
+ * 
+ * @author Dario Seidl
+ * 
+ */
 public class PushSumCD implements AggregationProtocol, CDProtocol
 {
 	private double trueValue;
@@ -17,6 +32,10 @@ public class PushSumCD implements AggregationProtocol, CDProtocol
 	public PushSumCD(String prefix)
 	{}
 
+	/**
+	 * In each cycle, writes half value and half weight into the buffer of
+	 * itself and a randomly selected neighbor.
+	 */
 	@Override
 	public void nextCycle(Node self, int protocolID)
 	{
@@ -36,6 +55,11 @@ public class PushSumCD implements AggregationProtocol, CDProtocol
 		}
 	}
 
+	/**
+	 * Update function called by {@link PushSumCDUpdate}. Sets value and weight
+	 * to the sum of the received values and weights stored in the buffers, then
+	 * empties the buffers.
+	 */
 	public void update()
 	{
 		//sum up
@@ -45,18 +69,29 @@ public class PushSumCD implements AggregationProtocol, CDProtocol
 		weightBuffer = 0.;
 	}
 
+	/**
+	 * Returns the unmodified value of the node.
+	 */
 	@Override
 	public double getTrueValue()
 	{
 		return trueValue;
 	}
 
+	/**
+	 * Returns the local estimate of the mean value of all nodes in the network.
+	 * The estimate is obtained by dividing value by weight.
+	 */
 	@Override
 	public double getEstimate()
 	{
-		return (value == 0.) ? 0. : value / weight;
+		return value / weight;
 	}
 
+	/**
+	 * Setter to initialize the value of this node. Called by subclasses of
+	 * {@link VectControl}.
+	 */
 	public void initializeValue(double value)
 	{
 		this.trueValue = value;
@@ -64,6 +99,10 @@ public class PushSumCD implements AggregationProtocol, CDProtocol
 		valueBuffer = value;
 	}
 
+	/**
+	 * Setter to initialize the weight of this node. Called by subclasses of
+	 * {@link VectControl}.
+	 */
 	public void initializeWeight(double weight)
 	{
 		this.weight = weight;

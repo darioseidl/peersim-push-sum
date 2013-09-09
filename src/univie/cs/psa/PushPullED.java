@@ -6,6 +6,7 @@ import peersim.core.Node;
 import peersim.edsim.EDProtocol;
 import peersim.edsim.EDSimulator;
 import peersim.transport.Transport;
+import peersim.vector.VectControl;
 import univie.cs.psa.msg.TimerMessage;
 import univie.cs.psa.utils.AggregationProtocol;
 import univie.cs.psa.utils.ProtocolUtils;
@@ -14,16 +15,17 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 {
 	private static final String PAR_STEP = "step";
 
-	private final int step;
+	private final int stepSize;
 	private double trueValue;
 	private double estimate;
 	private boolean initiated = false;
 
 	public PushPullED(String prefix)
 	{
-		step = Configuration.getInt(prefix + "." + PAR_STEP);
+		stepSize = Configuration.getInt(prefix + "." + PAR_STEP);
 
-		if (step % 4 != 0)
+		//TODO get rid of this restriction
+		if (stepSize % 4 != 0)
 		{
 			throw new IllegalArgumentException("step must be divisble by 4.");
 		}
@@ -39,13 +41,14 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 			return;
 		}
 
+		//a timer message signalling the start of a new step
 		else if (event instanceof TimerMessage)
 		{
 			Node neighbor = ProtocolUtils.getRandomNeighbor(self, protocolID);
 
 			if (neighbor != null)
 			{
-				EDSimulator.add(step / 4, null, self, protocolID);
+				EDSimulator.add(stepSize / 4, null, self, protocolID);
 
 				initiated = true;
 				ValueSenderMessage request = new ValueSenderMessage(initiated, self, estimate);
@@ -53,9 +56,11 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 				transport.send(self, neighbor, request, protocolID);
 			}
 
-			EDSimulator.add(step, event, self, protocolID);
+			//schedule a timer message for the next step
+			EDSimulator.add(stepSize, event, self, protocolID);
 		}
 
+		//a message from a neighbor
 		else if (event instanceof ValueSenderMessage)
 		{
 			ValueSenderMessage msg = (ValueSenderMessage) event;
@@ -83,18 +88,28 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 		}
 	}
 
+	/**
+	 * Returns the unmodified value of the node.
+	 */
 	@Override
 	public double getTrueValue()
 	{
 		return trueValue;
 	}
 
+	/**
+	 * Returns the local estimate of the mean value of all nodes in the network.
+	 */
 	@Override
 	public double getEstimate()
 	{
 		return estimate;
 	}
 
+	/**
+	 * Setter to initialize the value of this node. Called by subclasses of
+	 * {@link VectControl}.
+	 */
 	public void initialize(double value)
 	{
 		this.trueValue = value;

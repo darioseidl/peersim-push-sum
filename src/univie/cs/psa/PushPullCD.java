@@ -2,6 +2,7 @@ package univie.cs.psa;
 
 import peersim.cdsim.CDProtocol;
 import peersim.core.Node;
+import peersim.vector.VectControl;
 import univie.cs.psa.utils.AggregationProtocol;
 import univie.cs.psa.utils.ProtocolUtils;
 
@@ -22,25 +23,35 @@ public class PushPullCD implements AggregationProtocol, CDProtocol
 		{
 			PushPullCD neighborProtocol = (PushPullCD) neighbor.getProtocol(protocolID);
 
-			//set the estimate of self and neighbor to the mean of the current estimates
+			//set the estimate of self and neighbor to the mean of their current estimates
 			double mean = (this.estimate + neighborProtocol.estimate) / 2;
 			this.estimate = mean;
 			neighborProtocol.estimate = mean;
 		}
 	}
 
+	/**
+	 * Returns the unmodified value of the node.
+	 */
 	@Override
 	public double getTrueValue()
 	{
 		return trueValue;
 	}
 
+	/**
+	 * Returns the local estimate of the mean value of all nodes in the network.
+	 */
 	@Override
 	public double getEstimate()
 	{
 		return estimate;
 	}
 
+	/**
+	 * Setter to initialize the value of this node. Called by subclasses of
+	 * {@link VectControl}.
+	 */
 	public void initialize(double value)
 	{
 		this.trueValue = value;
