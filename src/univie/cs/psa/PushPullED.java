@@ -115,6 +115,7 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 	}
 }
 
+//TODO combine with ValueWeightMessage
 class ValueSenderMessage
 {
 	private final boolean initiated;
