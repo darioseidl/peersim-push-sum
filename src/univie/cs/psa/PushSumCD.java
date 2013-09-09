@@ -7,7 +7,7 @@ import univie.cs.psa.utils.AggregationProtocol;
 import univie.cs.psa.utils.ProtocolUtils;
 
 /**
- * Cycle-driven Push-Sum.<br/>
+ * A cycle-driven implementation of the Push-Sum protocol.<br/>
  * <br/>
  * In each cycle a node sends half of it's value and half of it's weight to a
  * randomly selected neighbor and to itself. In the cycle driven implementation,
