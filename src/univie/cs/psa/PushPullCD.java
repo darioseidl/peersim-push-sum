@@ -50,15 +50,13 @@ public class PushPullCD implements AggregationProtocol, CDProtocol
 	@Override
 	public Object clone()
 	{
-		Object o = null;
 		try
 		{
-			o = super.clone();
+			return super.clone();
 		}
 		catch (CloneNotSupportedException e)
 		{
 			throw new RuntimeException(e);
 		}
-		return o;
 	}
 }

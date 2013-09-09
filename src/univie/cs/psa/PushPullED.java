@@ -101,7 +101,6 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 		this.estimate = value;
 	}
 
-	//TODO is it necessary to copy members in clone???
 	@Override
 	public Object clone()
 	{
