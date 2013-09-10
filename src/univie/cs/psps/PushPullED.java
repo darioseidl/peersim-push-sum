@@ -33,6 +33,15 @@ import univie.cs.psps.msg.TimerMessage;
 import univie.cs.psps.utils.AggregationProtocol;
 import univie.cs.psps.utils.ProtocolUtils;
 
+/**
+ * An event-driven implementation of the Push-Pull protocol.
+ * <p>
+ * In each step, each node selects a random neighbor and sets the estimate of
+ * the neighbor and of itself to the mean of their current estimates.
+ * 
+ * @author Dario Seidl
+ * 
+ */
 public class PushPullED implements AggregationProtocol, EDProtocol
 {
 	private static final String PAR_STEP = "step";
@@ -40,26 +49,19 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 	private final int stepSize;
 	private double trueValue;
 	private double estimate;
-	private boolean initiated = false;
+	private boolean wait;
 
 	public PushPullED(String prefix)
 	{
 		stepSize = Configuration.getInt(prefix + "." + PAR_STEP);
-
-		// TODO get rid of this restriction
-		if (stepSize % 4 != 0)
-		{
-			throw new IllegalArgumentException("step must be divisble by 4.");
-		}
 	}
 
 	@Override
 	public void processEvent(Node self, int protocolID, Object event)
 	{
-		// TODO what is the deal with initiated???
-		if (event == null)
+		if (event instanceof ContinueMessage)
 		{
-			initiated = false;
+			wait = false;
 			return;
 		}
 
@@ -70,12 +72,14 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 
 			if (neighbor != null)
 			{
-				EDSimulator.add(stepSize / 4, null, self, protocolID);
-
-				initiated = true;
-				ValueSenderMessage request = new ValueSenderMessage(initiated, self, estimate);
+				PushPullMessage push = new PushPullMessage(self, estimate);
 				Transport transport = (Transport) self.getProtocol(FastConfig.getTransport(protocolID));
-				transport.send(self, neighbor, request, protocolID);
+				transport.send(self, neighbor, push, protocolID);
+
+				// after sending a push message, the node has to wait for a
+				// short time, during which incoming push messages are ignored
+				wait = true;
+				EDSimulator.add(1, new ContinueMessage(), self, protocolID);
 			}
 
 			// schedule a timer message for the next step
@@ -83,30 +87,30 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 		}
 
 		// a message from a neighbor
-		else if (event instanceof ValueSenderMessage)
+		else if (event instanceof PushPullMessage)
 		{
-			ValueSenderMessage msg = (ValueSenderMessage) event;
+			PushPullMessage msg = (PushPullMessage) event;
 
-			if (msg.isInitiated())
+			// if sender is not null it is a push message that has to be
+			// answered
+			if (msg.getSender() != null)
 			{
-				if (initiated)
+				// but if this node just sent out a push message, we ignore this
+				// message
+				if (wait)
 				{
 					return;
 				}
 
-				double temp = msg.getValue();
-
-				ValueSenderMessage request = new ValueSenderMessage(initiated, self, estimate);
+				// send an answer
+				PushPullMessage pull = new PushPullMessage(null, estimate);
 				Transport transport = (Transport) self.getProtocol(FastConfig.getTransport(protocolID));
-				transport.send(self, msg.getSender(), request, protocolID);
+				transport.send(self, msg.getSender(), pull, protocolID);
+			}
 
-				estimate = (temp + estimate) / 2;
-			}
-			else
-			{
-				estimate = (msg.getValue() + estimate) / 2;
-				initiated = false;
-			}
+			// set the estimate to the mean of its own estimate and the estimate
+			// of the sender of the message
+			estimate = (msg.getValue() + estimate) / 2;
 		}
 	}
 
@@ -152,23 +156,15 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 	}
 }
 
-// TODO combine with ValueWeightMessage
-class ValueSenderMessage
+class PushPullMessage
 {
-	private final boolean initiated;
 	private final Node sender;
 	private final double value;
 
-	ValueSenderMessage(boolean initiated, Node sender, double value)
+	PushPullMessage(Node sender, double value)
 	{
-		this.initiated = initiated;
 		this.sender = sender;
 		this.value = value;
-	}
-
-	public boolean isInitiated()
-	{
-		return initiated;
 	}
 
 	public Node getSender()
@@ -181,3 +177,6 @@ class ValueSenderMessage
 		return value;
 	}
 }
+
+class ContinueMessage
+{}

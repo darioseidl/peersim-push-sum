@@ -30,7 +30,6 @@ import peersim.edsim.EDSimulator;
 import peersim.transport.Transport;
 import peersim.vector.VectControl;
 import univie.cs.psps.msg.TimerMessage;
-import univie.cs.psps.msg.ValueWeightMessage;
 import univie.cs.psps.utils.AggregationProtocol;
 import univie.cs.psps.utils.ProtocolUtils;
 
@@ -38,7 +37,7 @@ import univie.cs.psps.utils.ProtocolUtils;
  * An event-driven implementaion of the Push-Sum protocol.
  * <p>
  * In each step, each node sums up the received values and weights of the
- * previous step and then sends half of it's value and half of it's weight to a
+ * previous step and then sends half of its value and half of its weight to a
  * randomly selected neighbor and to itself.
  * <p>
  * This protocol expects the following additional parameters in the
@@ -96,7 +95,7 @@ public class PushSumED implements AggregationProtocol, EDProtocol
 
 				// send to neighbor
 				Transport transport = (Transport) self.getProtocol(FastConfig.getTransport(protocolID));
-				transport.send(self, neighbor, new ValueWeightMessage(value / 2, weight / 2), protocolID);
+				transport.send(self, neighbor, new PushSumMessage(value / 2, weight / 2), protocolID);
 
 			}
 
@@ -105,9 +104,9 @@ public class PushSumED implements AggregationProtocol, EDProtocol
 
 		}
 		// a message from a neighbor
-		else if (event instanceof ValueWeightMessage)
+		else if (event instanceof PushSumMessage)
 		{
-			ValueWeightMessage message = (ValueWeightMessage) event;
+			PushSumMessage message = (PushSumMessage) event;
 
 			valueBuffer += message.getValue();
 			weightBuffer += message.getWeight();
@@ -171,5 +170,27 @@ public class PushSumED implements AggregationProtocol, EDProtocol
 		{
 			throw new RuntimeException(e);
 		}
+	}
+}
+
+class PushSumMessage
+{
+	private final double value;
+	private final double weight;
+
+	public PushSumMessage(double value, double weight)
+	{
+		this.value = value;
+		this.weight = weight;
+	}
+
+	public double getValue()
+	{
+		return value;
+	}
+
+	public double getWeight()
+	{
+		return weight;
 	}
 }

@@ -29,16 +29,20 @@ import univie.cs.psps.utils.AggregationProtocol;
 import univie.cs.psps.utils.ProtocolUtils;
 
 /**
- * A cycle-driven implementation of the Push-Sum protocol.
+ * A cycle-driven implementation of the Push-Sum protocol. *
  * <p>
- * In each cycle a node sends half of it's value and half of it's weight to a
- * randomly selected neighbor and to itself. In the cycle driven implementation,
- * instead of sending a message we write directly into the buffers of the
- * receiving node.
+ * In each cycle a node sends half of its value and half of its weight to a
+ * randomly selected neighbor and to itself. *
  * <p>
- * Afterwards all nodes sum up the received values. Since this has to happen
- * after all the values have been exchanged, we implement this as a seperate
- * control class {@link PushSumCDUpdate}, that is executed after each cycle.
+ * This implementation is based on a very simplified model in which we take
+ * advantage of two kinds of synchronization: cycles and synchronous
+ * communication. Instead of sending messages, we write directly into the
+ * buffers of the receiving node.
+ * <p>
+ * Afterwards all nodes have executed a cycle the received values are summed up
+ * and used for the next cycle. Since this has to happen after all the
+ * communication is done, we implement this as a seperate control class
+ * {@link PushSumCDUpdate}, that is executed between the cycles.
  * 
  * @author Dario Seidl
  * 
@@ -63,8 +67,10 @@ public class PushSumCD implements AggregationProtocol, CDProtocol
 	{}
 
 	/**
-	 * In each cycle, writes half value and half weight into the buffer of
-	 * itself and a randomly selected neighbor.
+	 * /** Called once for each node before advancing to the next cycle.
+	 * <p>
+	 * In each cycle a node sends half of its value and half of its weight to a
+	 * randomly selected neighbor and to itself.
 	 */
 	@Override
 	public void nextCycle(Node self, int protocolID)
