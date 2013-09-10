@@ -9,8 +9,9 @@ simulator.
 Usage
 --------------------------------------------------------------------------------
 
-The peersim library, including the .jar files for jep and djep must be 
-downloaded separately.
+The PeerSim library must be downloaded separately. You can download the library
+from the SourceForge http://sourceforge.net/projects/peersim/. Extract the Zip 
+archive and place the peersim-1.0.5 folder in the lib folder of this project. 
 
 
 References
