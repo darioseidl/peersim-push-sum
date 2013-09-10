@@ -75,6 +75,10 @@
 
 	<property name="ext" value="png" description="Plot image type: png or svg."/>
 	
+	<condition property="gnuplot_bin" value="gnuplot.exe" else="gnuplot">
+		<os family="windows"/>
+	</condition>
+
     <target name="-sim" depends="build">
         <java classname="peersim.rangesim.RangeSimulator" classpathref="classpath" failonerror="true" fork="yes">
         	<arg value="config/${algo}.config"/>
@@ -85,7 +89,7 @@
         	<arg value="control.obs.plotfile ${prefix}-${algo}.data"/>
         </java>
     </target>
-		
+	
 	<target name="-plot">
 		<antcall target="-sim">
 			<param name="algo" value="pp-cd"/>
@@ -103,13 +107,7 @@
 			<param name="algo" value="ps-ed"/>
 			<param name="init" value="weights timer"/>
 		</antcall>
-		<exec executable="gnuplot" osfamily="unix">
-			<arg line="-e &quot;IMG='${img}';TERM='${ext}';DATA_PP_CD='${prefix}-pp-cd.data';DATA_PS_CD='${prefix}-ps-cd.data';DATA_PP_ED='${prefix}-pp-ed.data';DATA_PS_ED='${prefix}-ps-ed.data';TITLE='${title}';XLABEL='${xlabel}';XCOL=${xcolumn};STEPSIZE=1000&quot; plot.p"/>
-		</exec>
-		<exec executable="gnuplot" osfamily="mac">
-			<arg line="-e &quot;IMG='${img}';TERM='${ext}';DATA_PP_CD='${prefix}-pp-cd.data';DATA_PS_CD='${prefix}-ps-cd.data';DATA_PP_ED='${prefix}-pp-ed.data';DATA_PS_ED='${prefix}-ps-ed.data';TITLE='${title}';XLABEL='${xlabel}';XCOL=${xcolumn};STEPSIZE=1000&quot; plot.p"/>
-		</exec>
-		<exec executable="gnuplot.exe" osfamily="windows">
+		<exec executable="${gnuplot_bin}">
 			<arg line="-e &quot;IMG='${img}';TERM='${ext}';DATA_PP_CD='${prefix}-pp-cd.data';DATA_PS_CD='${prefix}-ps-cd.data';DATA_PP_ED='${prefix}-pp-ed.data';DATA_PS_ED='${prefix}-ps-ed.data';TITLE='${title}';XLABEL='${xlabel}';XCOL=${xcolumn};STEPSIZE=1000&quot; plot.p"/>
 		</exec>
 	</target>
