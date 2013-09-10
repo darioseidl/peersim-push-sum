@@ -1,10 +1,10 @@
-package univie.cs.psa;
+package univie.cs.psps;
 
 import peersim.cdsim.CDProtocol;
 import peersim.core.Node;
 import peersim.vector.VectControl;
-import univie.cs.psa.utils.AggregationProtocol;
-import univie.cs.psa.utils.ProtocolUtils;
+import univie.cs.psps.utils.AggregationProtocol;
+import univie.cs.psps.utils.ProtocolUtils;
 
 /**
  * A cycle-driven implementation of the Push-Sum protocol.
@@ -30,6 +30,13 @@ public class PushSumCD implements AggregationProtocol, CDProtocol
 	private double valueBuffer;
 	private double weightBuffer;
 
+	/**
+	 * The standard constructor called by the simulator, reading parameters from
+	 * the configuration file.
+	 * 
+	 * @param prefix
+	 *            the prefix for this control in the configuration file.
+	 */
 	public PushSumCD(String prefix)
 	{}
 
@@ -90,8 +97,8 @@ public class PushSumCD implements AggregationProtocol, CDProtocol
 	}
 
 	/**
-	 * Setter to initialize the value of this node. Called by subclasses of
-	 * {@link VectControl}.
+	 * Sets the value of this node. Should be called by subclasses of
+	 * {@link VectControl} to initialize all nodes in the network.
 	 */
 	public void initializeValue(double value)
 	{
@@ -101,8 +108,8 @@ public class PushSumCD implements AggregationProtocol, CDProtocol
 	}
 
 	/**
-	 * Setter to initialize the weight of this node. Called by subclasses of
-	 * {@link VectControl}.
+	 * Sets the weight of this node. Should be called by subclasses of
+	 * {@link VectControl} to initialize all nodes in the network.
 	 */
 	public void initializeWeight(double weight)
 	{

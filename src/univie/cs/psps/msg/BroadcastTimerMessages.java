@@ -1,4 +1,4 @@
-package univie.cs.psa.msg;
+package univie.cs.psps.msg;
 
 import peersim.config.Configuration;
 import peersim.config.FastConfig;

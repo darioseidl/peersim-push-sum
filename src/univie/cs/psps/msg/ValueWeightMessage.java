@@ -1,4 +1,4 @@
-package univie.cs.psa.msg;
+package univie.cs.psps.msg;
 
 /**
  * A message carrying a value and a weight as used in the Push-Sum algorithm.

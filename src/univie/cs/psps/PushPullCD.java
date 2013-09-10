@@ -1,22 +1,16 @@
-package univie.cs.psa;
+package univie.cs.psps;
 
 import peersim.cdsim.CDProtocol;
 import peersim.core.Node;
 import peersim.vector.VectControl;
-import univie.cs.psa.utils.AggregationProtocol;
-import univie.cs.psa.utils.ProtocolUtils;
+import univie.cs.psps.utils.AggregationProtocol;
+import univie.cs.psps.utils.ProtocolUtils;
 
 /**
  * A cycle-driven implementation of the Push-Pull protocol.
  * <p>
- * In each cycle a node sends half of it's value and half of it's weight to a
- * randomly selected neighbor and to itself. In the cycle driven implementation,
- * instead of sending a message we write directly into the buffers of the
- * receiving node.
- * <p>
- * Afterwards all nodes sum up the received values. Since this has to happen
- * after all the values have been exchanged, we implement this as a seperate
- * control class {@link PushSumCDUpdate}, that is executed after each cycle.
+ * In each cycle, each node selects a random neighbor and sets the estimate of
+ * the neighbor and of itself to the mean of their current estimates.
  * 
  * @author Dario Seidl
  * 
@@ -26,6 +20,13 @@ public class PushPullCD implements AggregationProtocol, CDProtocol
 	private double trueValue;
 	private double estimate;
 
+	/**
+	 * The standard constructor called by the simulator, reading parameters from
+	 * the configuration file.
+	 * 
+	 * @param prefix
+	 *            the prefix for this control in the configuration file.
+	 */
 	public PushPullCD(String prefix)
 	{}
 
@@ -38,7 +39,7 @@ public class PushPullCD implements AggregationProtocol, CDProtocol
 		{
 			PushPullCD neighborProtocol = (PushPullCD) neighbor.getProtocol(protocolID);
 
-			//set the estimate of self and neighbor to the mean of their current estimates
+			//set the estimate the neighbor and of itself to the mean of their current estimates
 			double mean = (this.estimate + neighborProtocol.estimate) / 2;
 			this.estimate = mean;
 			neighborProtocol.estimate = mean;
@@ -64,10 +65,10 @@ public class PushPullCD implements AggregationProtocol, CDProtocol
 	}
 
 	/**
-	 * Setter to initialize the value of this node. Called by subclasses of
-	 * {@link VectControl}.
+	 * Sets the value of this node. Should be called by subclasses of
+	 * {@link VectControl} to initialize all nodes in the network.
 	 */
-	public void initialize(double value)
+	public void initializeValue(double value)
 	{
 		this.trueValue = value;
 		this.estimate = value;

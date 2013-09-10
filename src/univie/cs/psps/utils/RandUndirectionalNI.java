@@ -1,4 +1,4 @@
-package univie.cs.psa.utils;
+package univie.cs.psps.utils;
 
 import peersim.config.Configuration;
 import peersim.core.CommonState;

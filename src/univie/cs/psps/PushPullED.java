@@ -1,4 +1,4 @@
-package univie.cs.psa;
+package univie.cs.psps;
 
 import peersim.config.Configuration;
 import peersim.config.FastConfig;
@@ -7,9 +7,9 @@ import peersim.edsim.EDProtocol;
 import peersim.edsim.EDSimulator;
 import peersim.transport.Transport;
 import peersim.vector.VectControl;
-import univie.cs.psa.msg.TimerMessage;
-import univie.cs.psa.utils.AggregationProtocol;
-import univie.cs.psa.utils.ProtocolUtils;
+import univie.cs.psps.msg.TimerMessage;
+import univie.cs.psps.utils.AggregationProtocol;
+import univie.cs.psps.utils.ProtocolUtils;
 
 public class PushPullED implements AggregationProtocol, EDProtocol
 {
@@ -107,10 +107,10 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 	}
 
 	/**
-	 * Setter to initialize the value of this node. Called by subclasses of
-	 * {@link VectControl}.
+	 * Sets the value of this node. Should be called by subclasses of
+	 * {@link VectControl} to initialize all nodes in the network.
 	 */
-	public void initialize(double value)
+	public void initializeValue(double value)
 	{
 		this.trueValue = value;
 		this.estimate = value;

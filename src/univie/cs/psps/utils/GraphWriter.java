@@ -1,4 +1,4 @@
-package univie.cs.psa.utils;
+package univie.cs.psps.utils;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package univie.cs.psa;
+package univie.cs.psps;
 
 import peersim.config.Configuration;
 import peersim.core.Control;
