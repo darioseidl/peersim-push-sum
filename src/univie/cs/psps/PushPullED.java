@@ -24,7 +24,7 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 	{
 		stepSize = Configuration.getInt(prefix + "." + PAR_STEP);
 
-		//TODO get rid of this restriction
+		// TODO get rid of this restriction
 		if (stepSize % 4 != 0)
 		{
 			throw new IllegalArgumentException("step must be divisble by 4.");
@@ -34,14 +34,14 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 	@Override
 	public void processEvent(Node self, int protocolID, Object event)
 	{
-		//TODO what is the deal with initiated???
+		// TODO what is the deal with initiated???
 		if (event == null)
 		{
 			initiated = false;
 			return;
 		}
 
-		//a timer message signalling the start of a new step
+		// a timer message signalling the start of a new step
 		else if (event instanceof TimerMessage)
 		{
 			Node neighbor = ProtocolUtils.getRandomNeighbor(self, protocolID);
@@ -56,11 +56,11 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 				transport.send(self, neighbor, request, protocolID);
 			}
 
-			//schedule a timer message for the next step
+			// schedule a timer message for the next step
 			EDSimulator.add(stepSize, event, self, protocolID);
 		}
 
-		//a message from a neighbor
+		// a message from a neighbor
 		else if (event instanceof ValueSenderMessage)
 		{
 			ValueSenderMessage msg = (ValueSenderMessage) event;
@@ -130,7 +130,7 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 	}
 }
 
-//TODO combine with ValueWeightMessage
+// TODO combine with ValueWeightMessage
 class ValueSenderMessage
 {
 	private final boolean initiated;

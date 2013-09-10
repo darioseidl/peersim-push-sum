@@ -53,11 +53,11 @@ public class PushSumCD implements AggregationProtocol, CDProtocol
 		{
 			PushSumCD neighborProtocol = (PushSumCD) neighbor.getProtocol(protocolID);
 
-			//send half of value and weight to self
+			// send half of value and weight to self
 			valueBuffer += value / 2;
 			weightBuffer += weight / 2;
 
-			//send half of value and weight to a random neighbor
+			// send half of value and weight to a random neighbor
 			neighborProtocol.valueBuffer += value / 2;
 			neighborProtocol.weightBuffer += weight / 2;
 		}
@@ -70,7 +70,7 @@ public class PushSumCD implements AggregationProtocol, CDProtocol
 	 */
 	public void update()
 	{
-		//sum up
+		// sum up
 		value = valueBuffer;
 		weight = weightBuffer;
 		valueBuffer = 0.;

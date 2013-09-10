@@ -39,7 +39,8 @@ public class PushPullCD implements AggregationProtocol, CDProtocol
 		{
 			PushPullCD neighborProtocol = (PushPullCD) neighbor.getProtocol(protocolID);
 
-			//set the estimate the neighbor and of itself to the mean of their current estimates
+			// set the estimate the neighbor and of itself to the mean of their
+			// current estimates
 			double mean = (this.estimate + neighborProtocol.estimate) / 2;
 			this.estimate = mean;
 			neighborProtocol.estimate = mean;

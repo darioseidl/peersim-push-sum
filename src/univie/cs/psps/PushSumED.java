@@ -22,8 +22,8 @@ import univie.cs.psps.utils.ProtocolUtils;
  * This protocol expects the following additional parameters in the
  * configuration file:
  * <p>
- * <blockquote>{@code step} - the time between timer messages signalling
- * the start of the next step<br/>
+ * <blockquote>{@code step} - the time between timer messages signalling the
+ * start of the next step<br/>
  * </blockquote>
  * 
  * @author Dario Seidl
@@ -57,32 +57,32 @@ public class PushSumED implements AggregationProtocol, EDProtocol
 	@Override
 	public void processEvent(Node self, int protocolID, Object event)
 	{
-		//a timer message signalling the start of a new step
+		// a timer message signalling the start of a new step
 		if (event instanceof TimerMessage)
 		{
 			Node neighbor = ProtocolUtils.getRandomNeighbor(self, protocolID);
 
 			if (neighbor != null)
 			{
-				//sum up
+				// sum up
 				value = valueBuffer;
 				weight = weightBuffer;
 
-				//send to self
+				// send to self
 				valueBuffer = value / 2;
 				weightBuffer = weight / 2;
 
-				//send to neighbor
+				// send to neighbor
 				Transport transport = (Transport) self.getProtocol(FastConfig.getTransport(protocolID));
 				transport.send(self, neighbor, new ValueWeightMessage(value / 2, weight / 2), protocolID);
 
 			}
 
-			//schedule a timer message for the next step
+			// schedule a timer message for the next step
 			EDSimulator.add(stepSize, new TimerMessage(), self, protocolID);
 
 		}
-		//a message from a neighbor
+		// a message from a neighbor
 		else if (event instanceof ValueWeightMessage)
 		{
 			ValueWeightMessage message = (ValueWeightMessage) event;
