@@ -47,25 +47,25 @@
 	
 	<!-- === example run targets === -->
     
-    <target name="run-pp-cd" depends="build" description="Run a simulation of the cycle-driven Push-Pull algorithm.">
+    <target name="run-pp-cd" depends="build" description="Run a simulation of the cycle-driven Push-Pull protocol.">
         <java classname="peersim.Simulator" classpathref="classpath" failonerror="true" fork="yes">
         	<arg value="config/pp-cd.config"/>
         </java>
     </target>
 
-    <target name="run-pp-ed" depends="build" description="Run a simulation of the event-driven Push-Pull algorithm.">
+    <target name="run-pp-ed" depends="build" description="Run a simulation of the event-driven Push-Pull protocol.">
         <java classname="peersim.Simulator" classpathref="classpath" failonerror="true" fork="yes">
         	<arg value="config/pp-ed.config"/>
         </java>
     </target>
         	
-    <target name="run-ps-cd" depends="build" description="Run a simulation of the cycle-driven Push-Sum algorithm.">
+    <target name="run-ps-cd" depends="build" description="Run a simulation of the cycle-driven Push-Sum protocol.">
         <java classname="peersim.Simulator" classpathref="classpath" failonerror="true" fork="yes">
         	<arg value="config/ps-cd.config"/>
         </java>
     </target>
 	
-    <target name="run-ps-ed" depends="build" description="Run a simulation of the event-driven Push-Sum algorithm.">
+    <target name="run-ps-ed" depends="build" description="Run a simulation of the event-driven Push-Sum protocol.">
         <java classname="peersim.Simulator" classpathref="classpath" failonerror="true" fork="yes">
         	<arg value="config/ps-ed.config"/>
         </java>
@@ -81,30 +81,30 @@
 
     <target name="-sim" depends="build">
         <java classname="peersim.rangesim.RangeSimulator" classpathref="classpath" failonerror="true" fork="yes">
-        	<arg value="config/${algo}.config"/>
+        	<arg value="config/${type}.config"/>
         	<arg value="range.N N;${noderange}"/>
         	<arg value="range.CLUSTERS CLUSTERS;${clusterrange}"/>
         	<!--<arg value="random.seed ${randomSeed}"/>-->
         	<arg value="include.init ${wire} ${dist} ${init}"/>        	
-        	<arg value="control.obs.plotfile ${prefix}-${algo}.data"/>
+        	<arg value="control.obs.plotfile ${prefix}-${type}.data"/>
         </java>
     </target>
 	
 	<target name="-plot">
 		<antcall target="-sim">
-			<param name="algo" value="pp-cd"/>
+			<param name="type" value="pp-cd"/>
 			<param name="init" value=""/>
 		</antcall>
 		<antcall target="-sim">
-			<param name="algo" value="ps-cd"/>
+			<param name="type" value="ps-cd"/>
 			<param name="init" value="weights"/>
 		</antcall>
 		<antcall target="-sim">
-			<param name="algo" value="pp-ed"/>
+			<param name="type" value="pp-ed"/>
 			<param name="init" value="timer"/>
 		</antcall>
 		<antcall target="-sim">
-			<param name="algo" value="ps-ed"/>
+			<param name="type" value="ps-ed"/>
 			<param name="init" value="weights timer"/>
 		</antcall>
 		<exec executable="${gnuplot_bin}">
