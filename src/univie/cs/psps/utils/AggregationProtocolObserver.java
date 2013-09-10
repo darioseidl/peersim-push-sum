@@ -29,6 +29,7 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 
 import peersim.config.Configuration;
+import peersim.core.CommonState;
 import peersim.core.Control;
 import peersim.core.Network;
 
@@ -93,7 +94,7 @@ public class AggregationProtocolObserver implements Control
 
 	private boolean printDetailedStats()
 	{
-		long time = peersim.core.CommonState.getTime();
+		long time = CommonState.getTime();
 
 		if (time == 0)
 		{

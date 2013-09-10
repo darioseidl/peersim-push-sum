@@ -38,6 +38,9 @@ import univie.cs.psps.utils.ProtocolUtils;
  * <p>
  * In each step, each node selects a random neighbor and sets the estimate of
  * the neighbor and of itself to the mean of their current estimates.
+ * <p>
+ * A completely asynchronous Push-Pull would not converge to the correct result,
+ * because of overlapping communication.
  * 
  * @author Dario Seidl
  * 

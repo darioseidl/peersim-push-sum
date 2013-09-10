@@ -29,7 +29,7 @@ import univie.cs.psps.utils.AggregationProtocol;
 import univie.cs.psps.utils.ProtocolUtils;
 
 /**
- * A cycle-driven implementation of the Push-Pull protocol. *
+ * A cycle-driven implementation of the Push-Pull protocol.
  * <p>
  * In each cycle, each node selects a random neighbor and sets the estimate of
  * the neighbor and of itself to the mean of their current estimates.
@@ -37,8 +37,7 @@ import univie.cs.psps.utils.ProtocolUtils;
  * This implementation is based on a very simplified model in which we take
  * advantage of two kinds of synchronization: cycles and synchronous
  * communication. Instead of sending a message and waiting for a response, we
- * set update the estimates of the communicating nodes directly and
- * simultanously.
+ * update the estimates of the communicating nodes directly and simultanously.
  * 
  * @author Dario Seidl
  * 

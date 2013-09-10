@@ -23,11 +23,10 @@
 package univie.cs.psps.msg;
 
 import peersim.config.Configuration;
-import peersim.config.FastConfig;
+import peersim.core.CommonState;
 import peersim.core.Control;
 import peersim.core.Network;
-import peersim.core.Node;
-import peersim.transport.Transport;
+import peersim.edsim.EDSimulator;
 
 /**
  * A control class to initialize the weights of all nodes in event-driven
@@ -37,6 +36,8 @@ import peersim.transport.Transport;
  * <p>
  * <blockquote>{@code protocol} - the name of the protocol to use for sending
  * the messages<br/>
+ * {@code step} - each timer message will be sent after a delay drawn at random
+ * from 0 (inclusive) to {@code step} (exclusive)<br/>
  * </blockquote>
  * 
  * @author Dario Seidl
@@ -45,8 +46,10 @@ import peersim.transport.Transport;
 public class BroadcastTimerMessages implements Control
 {
 	private static final String PAR_PROT = "protocol";
+	private static final String PAR_STEP = "step";
 
 	private final int protocolID;
+	private final int stepSize;
 
 	/**
 	 * The standard constructor called by the simulator, reading parameters from
@@ -58,6 +61,7 @@ public class BroadcastTimerMessages implements Control
 	public BroadcastTimerMessages(String prefix)
 	{
 		protocolID = Configuration.getPid(prefix + "." + PAR_PROT);
+		stepSize = Configuration.getInt(prefix + "." + PAR_STEP);
 	}
 
 	/**
@@ -66,12 +70,9 @@ public class BroadcastTimerMessages implements Control
 	@Override
 	public boolean execute()
 	{
-		Node root = Network.get(0);
-
 		for (int i = 0; i < Network.size(); i++)
 		{
-			Transport transport = (Transport) Network.get(i).getProtocol(FastConfig.getTransport(protocolID));
-			transport.send(root, Network.get(i), new TimerMessage(), protocolID);
+			EDSimulator.add(CommonState.r.nextInt(stepSize), new TimerMessage(), Network.get(i), protocolID);
 		}
 
 		return false;
