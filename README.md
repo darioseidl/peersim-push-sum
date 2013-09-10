@@ -9,6 +9,8 @@ simulator.
 Usage
 --------------------------------------------------------------------------------
 
+The peersim library, including the .jar files for jep and djep must be 
+downloaded separately.
 
 
 References
