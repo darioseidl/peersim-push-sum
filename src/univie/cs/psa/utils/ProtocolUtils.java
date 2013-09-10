@@ -17,10 +17,10 @@ public class ProtocolUtils
 	 * Returns a randomly selected neighbor of <code>self</code>.
 	 * 
 	 * @param self
-	 *            The calling node.
+	 *            the calling node.
 	 * @param protocolID
-	 *            The ID of the {@link Linkable} protocol to use.
-	 * @return A randomly selected node from the neighbors of <code>self</code>,
+	 *            the ID of the {@link Linkable} protocol to use.
+	 * @return a randomly selected node from the neighbors of <code>self</code>,
 	 *         or <code>null</code> if <code>self</code> has no neighbors or the
 	 *         chosen neighbor is down.
 	 */

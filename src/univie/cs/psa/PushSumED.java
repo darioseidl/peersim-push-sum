@@ -13,14 +13,17 @@ import univie.cs.psa.utils.AggregationProtocol;
 import univie.cs.psa.utils.ProtocolUtils;
 
 /**
- * An event-driven implementaion of the Push-Sum protocol.<br/>
- * <br/>
+ * An event-driven implementaion of the Push-Sum protocol.
+ * <p>
  * In each step, each node sums up the received values and weights of the
  * previous step and then sends half of it's value and half of it's weight to a
- * randomly selected neighbor and to itself. <br/>
- * <br/>
+ * randomly selected neighbor and to itself.
+ * <p>
  * This protocol expects the following additional parameters in the
- * configuration file: <blockquote><code>step</code> - the step size<br/>
+ * configuration file:
+ * <p>
+ * <blockquote><code>step</code> - the time between timer messages signalling
+ * the start of the next step<br/>
  * </blockquote>
  * 
  * @author Dario Seidl
@@ -44,7 +47,7 @@ public class PushSumED implements AggregationProtocol, EDProtocol
 	 * the configuration file.
 	 * 
 	 * @param prefix
-	 *            The prefix for this control in the configuration file.
+	 *            the prefix for this control in the configuration file.
 	 */
 	public PushSumED(String prefix)
 	{

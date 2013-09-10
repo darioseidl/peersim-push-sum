@@ -12,14 +12,15 @@ import peersim.core.Network;
 
 /**
  * Observes the results of an {@link AggregationProtocol} and determines when to
- * stop the execution of the protocol.<br/>
- * <br/>
+ * stop the execution of the protocol.
+ * <p>
  * This control expects the following parameters in the configuration file:
- * <blockquote><code>protocol</code> - the name of protocol to observe<br/>
+ * <p>
+ * <blockquote><code>protocol</code> - the name of protocol to observe.<br/>
  * <code>precision</code> - stop the execution when the variance of all
- * estimates is less than or equal to <code>precision</code><br/>
- * <code>plotfile</code> - (optional) name of a file to write the output to. If
- * a plotfile is set, the output will be formatted for Gnuplot.<br/>
+ * estimates is less than or equal to <code>precision</code>.<br/>
+ * <code>plotfile</code> - (optional) name of a file to write the output to . If
+ * this parameter is set, the output will be formatted for Gnuplot.<br/>
  * </blockquote>
  * 
  * @author Dario Seidl
@@ -42,7 +43,7 @@ public class AggregationProtocolObserver implements Control
 	 * the configuration file.
 	 * 
 	 * @param prefix
-	 *            The prefix for this control in the configuration file.
+	 *            the prefix for this control in the configuration file.
 	 */
 	public AggregationProtocolObserver(String prefix) throws FileNotFoundException
 	{

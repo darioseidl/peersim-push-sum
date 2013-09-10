@@ -9,9 +9,10 @@ import peersim.transport.Transport;
 
 /**
  * A control class to initialize the weights of all nodes in event-driven
- * simulations.<br/>
- * <br/>
+ * simulations.
+ * <p>
  * This control expects the following parameters in the configuration file:
+ * <p>
  * <blockquote><code>protocol</code> - the name of the protocol to use for
  * sending the messages<br/>
  * </blockquote>
@@ -30,7 +31,7 @@ public class BroadcastTimerMessages implements Control
 	 * the configuration file.
 	 * 
 	 * @param prefix
-	 *            The prefix for this control in the configuration file.
+	 *            the prefix for this control in the configuration file.
 	 */
 	public BroadcastTimerMessages(String prefix)
 	{
@@ -38,7 +39,7 @@ public class BroadcastTimerMessages implements Control
 	}
 
 	/**
-	 * Sends an {@link InitializationMessage} to each node in the network.
+	 * Sends an {@link TimerMessage} to each node in the network.
 	 */
 	@Override
 	public boolean execute()

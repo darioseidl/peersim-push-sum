@@ -11,13 +11,14 @@ import peersim.dynamics.RandNI;
 /**
  * A {@link NodeInitializer} creating a given number of random undirectional
  * links for a node. This class does exactly the same as {@link RandNI}, except
- * that the created links are undirectional.<br/>
- * <br/>
+ * that the created links are undirectional.
+ * <p>
  * This control expects the following parameters in the configuration file:
+ * <p>
  * <blockquote><code>protocol</code> - the name of the protocol to wire<br/>
  * <code>k</code> - the number of links to create per node<br/>
- * <code>pack</code> - if defined, call {@link Linkable#pack()} after
- * initializing the links<br/>
+ * <code>pack</code> - if this paramter is defined, call {@link Linkable#pack()}
+ * after initializing the links<br/>
  * </blockquote>
  * 
  * @author Dario Seidl
@@ -38,7 +39,7 @@ public class RandUndirectionalNI implements NodeInitializer
 	 * the configuration file.
 	 * 
 	 * @param prefix
-	 *            The prefix for this control in the configuration file.
+	 *            the prefix for this control in the configuration file.
 	 */
 	public RandUndirectionalNI(String prefix)
 	{

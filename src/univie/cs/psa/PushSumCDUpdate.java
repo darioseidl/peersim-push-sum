@@ -6,9 +6,10 @@ import peersim.core.Network;
 
 /**
  * Control class needed for the cycle-driven Push-Sum to call
- * {@link PushSumCD#update()} in all nodes after each cycle.<br/>
- * <br/>
+ * {@link PushSumCD#update()} in all nodes after each cycle.
+ * <p>
  * This control expects the following parameters in the configuration file:
+ * <p>
  * <blockquote><code>protocol</code> - the name of {@link PushSumCD} protocol<br/>
  * </blockquote>
  * 
@@ -26,7 +27,7 @@ public class PushSumCDUpdate implements Control
 	 * the configuration file.
 	 * 
 	 * @param prefix
-	 *            The prefix for this control in the configuration file.
+	 *            the prefix for this control in the configuration file.
 	 */
 	public PushSumCDUpdate(String prefix)
 	{

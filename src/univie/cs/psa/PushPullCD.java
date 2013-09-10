@@ -6,6 +6,21 @@ import peersim.vector.VectControl;
 import univie.cs.psa.utils.AggregationProtocol;
 import univie.cs.psa.utils.ProtocolUtils;
 
+/**
+ * A cycle-driven implementation of the Push-Pull protocol.
+ * <p>
+ * In each cycle a node sends half of it's value and half of it's weight to a
+ * randomly selected neighbor and to itself. In the cycle driven implementation,
+ * instead of sending a message we write directly into the buffers of the
+ * receiving node.
+ * <p>
+ * Afterwards all nodes sum up the received values. Since this has to happen
+ * after all the values have been exchanged, we implement this as a seperate
+ * control class {@link PushSumCDUpdate}, that is executed after each cycle.
+ * 
+ * @author Dario Seidl
+ * 
+ */
 public class PushPullCD implements AggregationProtocol, CDProtocol
 {
 	private double trueValue;

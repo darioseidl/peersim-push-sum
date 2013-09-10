@@ -10,9 +10,10 @@ import peersim.reports.GraphObserver;
 
 /**
  * An extension of {@link GraphObserver} to save the network graph to a .dot
- * file, intended for plotting with Graphviz.<br/>
- * <br/>
+ * file, intended for plotting with Graphviz.
+ * <p>
  * This control expects the following parameters in the configuration file:
+ * <p>
  * <blockquote><code>filename</code> - the name of the .dot file written by this
  * class.<br/>
  * </blockquote>
@@ -31,7 +32,7 @@ public class GraphWriter extends GraphObserver
 	 * the configuration file.
 	 * 
 	 * @param prefix
-	 *            The prefix for this control in the configuration file.
+	 *            the prefix for this control in the configuration file.
 	 */
 	public GraphWriter(String prefix)
 	{
