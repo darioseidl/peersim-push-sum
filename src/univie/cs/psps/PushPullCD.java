@@ -63,6 +63,9 @@ public class PushPullCD implements AggregationProtocol, CDProtocol
 
 			// set the estimate the neighbor and of itself to the mean of their
 			// current estimates
+			// XXX note that this is a very simplified model, in which we 
+			// make use of two kinds of synchronization: cycles and synchronous
+			// communication
 			double mean = (this.estimate + neighborProtocol.estimate) / 2;
 			this.estimate = mean;
 			neighborProtocol.estimate = mean;
