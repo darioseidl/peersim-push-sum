@@ -22,7 +22,7 @@ import univie.cs.psps.utils.ProtocolUtils;
  * This protocol expects the following additional parameters in the
  * configuration file:
  * <p>
- * <blockquote><code>step</code> - the time between timer messages signalling
+ * <blockquote>{@code step} - the time between timer messages signalling
  * the start of the next step<br/>
  * </blockquote>
  * 

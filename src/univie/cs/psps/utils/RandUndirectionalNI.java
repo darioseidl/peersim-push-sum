@@ -15,9 +15,9 @@ import peersim.dynamics.RandNI;
  * <p>
  * This control expects the following parameters in the configuration file:
  * <p>
- * <blockquote><code>protocol</code> - the name of the protocol to wire<br/>
- * <code>k</code> - the number of links to create per node<br/>
- * <code>pack</code> - if this paramter is defined, call {@link Linkable#pack()}
+ * <blockquote>{@code protocol} - the name of the protocol to wire<br/>
+ * {@code k} - the number of links to create per node<br/>
+ * {@code pack} - if this paramter is defined, call {@link Linkable#pack()}
  * after initializing the links<br/>
  * </blockquote>
  * 

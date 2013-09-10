@@ -14,14 +14,14 @@ import peersim.core.Node;
 public class ProtocolUtils
 {
 	/**
-	 * Returns a randomly selected neighbor of <code>self</code>.
+	 * Returns a randomly selected neighbor of {@code self}.
 	 * 
 	 * @param self
 	 *            the calling node.
 	 * @param protocolID
 	 *            the ID of the {@link Linkable} protocol to use.
-	 * @return a randomly selected node from the neighbors of <code>self</code>,
-	 *         or <code>null</code> if <code>self</code> has no neighbors or the
+	 * @return a randomly selected node from the neighbors of {@code self},
+	 *         or {@code null} if {@code self} has no neighbors or the
 	 *         chosen neighbor is down.
 	 */
 	public static Node getRandomNeighbor(Node self, int protocolID)

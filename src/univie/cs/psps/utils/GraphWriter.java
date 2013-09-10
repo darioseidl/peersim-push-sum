@@ -14,7 +14,7 @@ import peersim.reports.GraphObserver;
  * <p>
  * This control expects the following parameters in the configuration file:
  * <p>
- * <blockquote><code>filename</code> - the name of the .dot file written by this
+ * <blockquote>{@code filename} - the name of the .dot file written by this
  * class.<br/>
  * </blockquote>
  * 

@@ -16,10 +16,10 @@ import peersim.core.Network;
  * <p>
  * This control expects the following parameters in the configuration file:
  * <p>
- * <blockquote><code>protocol</code> - the name of protocol to observe.<br/>
- * <code>precision</code> - stop the execution when the variance of all
- * estimates is less than or equal to <code>precision</code>.<br/>
- * <code>plotfile</code> - (optional) name of a file to write the output to . If
+ * <blockquote>{@code protocol} - the name of protocol to observe.<br/>
+ * {@code precision} - stop the execution when the variance of all
+ * estimates is less than or equal to {@code precision}.<br/>
+ * {@code plotfile} - (optional) name of a file to write the output to . If
  * this parameter is set, the output will be formatted for Gnuplot.<br/>
  * </blockquote>
  * 

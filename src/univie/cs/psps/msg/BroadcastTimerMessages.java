@@ -13,7 +13,7 @@ import peersim.transport.Transport;
  * <p>
  * This control expects the following parameters in the configuration file:
  * <p>
- * <blockquote><code>protocol</code> - the name of the protocol to use for
+ * <blockquote>{@code protocol} - the name of the protocol to use for
  * sending the messages<br/>
  * </blockquote>
  * 

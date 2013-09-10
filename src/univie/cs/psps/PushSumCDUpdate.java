@@ -10,7 +10,7 @@ import peersim.core.Network;
  * <p>
  * This control expects the following parameters in the configuration file:
  * <p>
- * <blockquote><code>protocol</code> - the name of {@link PushSumCD} protocol<br/>
+ * <blockquote>{@code protocol} - the name of {@link PushSumCD} protocol<br/>
  * </blockquote>
  * 
  * @author Dario Seidl
