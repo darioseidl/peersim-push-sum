@@ -122,8 +122,7 @@ public class AggregationProtocolObserver implements Control
 		System.out.format("%16d %16s %s%n%16s %16s %s%n%16s %16s %s%n%n", time, "true:", trueValues, "", "estimate:", estimates, "",
 				"errors:", errors);
 
-		// TODO is the first condition needed?
-		return /* !Double.isInfinite(estimates.getMax()) && */estimates.getVariance() <= precision;
+		return estimates.getVariance() <= precision;
 	}
 
 	private boolean printPlotStats()
@@ -160,8 +159,7 @@ public class AggregationProtocolObserver implements Control
 				errors.addValue(protocol.getEstimate() - trueValues.getMean());
 			}
 
-			// TODO is the first condition needed?
-			boolean stop = /* !Double.isInfinite(estimates.getMax()) && */estimates.getVariance() <= precision;
+			boolean stop = estimates.getVariance() <= precision;
 
 			if (stop)
 			{
