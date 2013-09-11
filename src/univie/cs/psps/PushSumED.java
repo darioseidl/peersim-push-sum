@@ -24,6 +24,7 @@ package univie.cs.psps;
 
 import peersim.config.Configuration;
 import peersim.config.FastConfig;
+import peersim.core.CommonState;
 import peersim.core.Node;
 import peersim.edsim.EDProtocol;
 import peersim.edsim.EDSimulator;
@@ -89,18 +90,18 @@ public class PushSumED implements AggregationProtocol, EDProtocol
 				value = valueBuffer;
 				weight = weightBuffer;
 
-				// send to self
+				// send half of value and weight to self
 				valueBuffer = value / 2;
 				weightBuffer = weight / 2;
 
-				// send to neighbor
+				// send half of value and weight to a random neighbor
 				Transport transport = (Transport) self.getProtocol(FastConfig.getTransport(protocolID));
 				transport.send(self, neighbor, new PushSumMessage(value / 2, weight / 2), protocolID);
 
 			}
 
 			// schedule a timer message for the next step
-			EDSimulator.add(stepSize, new TimerMessage(), self, protocolID);
+			EDSimulator.add(CommonState.r.nextInt(stepSize), new TimerMessage(), self, protocolID);
 
 		}
 		// a message from a neighbor
