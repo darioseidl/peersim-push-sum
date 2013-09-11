@@ -173,15 +173,6 @@
 	</target>
 	
 	<target name="all-plots" depends="clean-plot,plot-fc,plot-kout,plot-cl-n,plot-cl-c" description="Simulate and plot all parameter sets."/>
-
-	<target name="all-plots-open" depends="all-plots" description="Simulate and plot all parameter sets; open an image of all plots combined.">
-		<exec executable="montage" osfamily="unix">
-			<arg line="-geometry +0+0 -border 1 ./plot/sim-*.${ext} ./plot/all-sim.png"/>
-		</exec>
-		<exec executable="xdg-open" osfamily="unix">
-			<arg line="./plot/all-sim.png"/>
-		</exec>
-	</target>
 	
 	<!-- === graphviz targets === -->
 	
@@ -240,14 +231,5 @@
 	</target>
 	
 	<target name="all-graph" depends="graph-fc,graph-kout,graph-cl" description="Generate all graph images."/>
-	
-	<target name="all-graph-open" depends="all-graph" description="Generate all graph images; open an image of all graphs combined.">
-		<exec executable="montage" osfamily="unix">
-			<arg line="-geometry +0+0 -border 1 ./plot/graph-*.${ext} ./plot/all-graph.png"/>
-		</exec>
-		<exec executable="xdg-open" osfamily="unix">
-			<arg line="./plot/all-graph.png"/>
-		</exec>
-	</target>
 	
 </project>
