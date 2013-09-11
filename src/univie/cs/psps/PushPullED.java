@@ -82,7 +82,7 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 				EDSimulator.add(1, new ContinueMessage(), self, protocolID);
 			}
 
-			// TODO is it possible to add random delay
+			// TODO is it possible to add random delay?
 			// schedule a timer message for the next step
 			EDSimulator.add(stepSize, event, self, protocolID);
 		}
