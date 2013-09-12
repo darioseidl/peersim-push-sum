@@ -29,15 +29,17 @@ import peersim.core.Network;
 import peersim.edsim.EDSimulator;
 
 /**
- * A control class to initialize the weights of all nodes in event-driven
- * simulations.
+ * A control class to send {@link TimerMessage} messages to all nodes to
+ * initiate the first step in event-driven simulations. Each messages will be
+ * send after a random delay to avoid an unrealistic synchronization between the
+ * nodes.
  * <p>
  * This control expects the following parameters in the configuration file:
  * <p>
  * <blockquote>{@code protocol} - the name of the protocol to use for sending
  * the messages<br/>
- * {@code step} - each timer message will be sent after a delay drawn at random
- * from 0 (inclusive) to {@code step} (exclusive)<br/>
+ * {@code step} - each message will be sent after a delay drawn at random from 0
+ * (inclusive) to {@code step} (exclusive)<br/>
  * </blockquote>
  * 
  * @author Dario Seidl
@@ -54,9 +56,6 @@ public class BroadcastTimerMessages implements Control
 	/**
 	 * The standard constructor called by the simulator, reading parameters from
 	 * the configuration file.
-	 * 
-	 * @param prefix
-	 *            the prefix for this control in the configuration file.
 	 */
 	public BroadcastTimerMessages(String prefix)
 	{

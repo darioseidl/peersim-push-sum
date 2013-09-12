@@ -38,11 +38,6 @@ import univie.cs.psps.utils.ProtocolUtils;
  * advantage of two kinds of synchronization: cycles and synchronous
  * communication. Instead of sending messages, we write directly into the
  * buffers of the receiving node.
- * <p>
- * Afterwards all nodes have executed a cycle the received values are summed up
- * and used for the next cycle. Since this has to happen after all the
- * communication is done, we implement this as a seperate control class
- * {@link PushSumCDUpdate}, that is executed between the cycles.
  * 
  * @author Dario Seidl
  * 
@@ -59,9 +54,6 @@ public class PushSumCD implements AggregationProtocol, CDProtocol
 	/**
 	 * The standard constructor called by the simulator, reading parameters from
 	 * the configuration file.
-	 * 
-	 * @param prefix
-	 *            the prefix for this control in the configuration file.
 	 */
 	public PushSumCD(String prefix)
 	{}

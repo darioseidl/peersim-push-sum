@@ -23,7 +23,8 @@
 package univie.cs.psps.msg;
 
 /**
- * A message without state, used as a periodic trigger in protocols.
+ * A message without state, used as to signal the start of the next step in
+ * event-driven protocols.
  * 
  * @author Dario Seidl
  * 

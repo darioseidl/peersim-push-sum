@@ -67,9 +67,6 @@ public class PushSumED implements AggregationProtocol, EDProtocol
 	/**
 	 * The standard constructor called by the simulator, reading parameters from
 	 * the configuration file.
-	 * 
-	 * @param prefix
-	 *            the prefix for this control in the configuration file.
 	 */
 	public PushSumED(String prefix)
 	{

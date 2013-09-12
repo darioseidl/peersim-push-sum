@@ -50,9 +50,6 @@ public class PushPullCD implements AggregationProtocol, CDProtocol
 	/**
 	 * The standard constructor called by the simulator, reading parameters from
 	 * the configuration file.
-	 * 
-	 * @param prefix
-	 *            the prefix for this control in the configuration file.
 	 */
 	public PushPullCD(String prefix)
 	{}

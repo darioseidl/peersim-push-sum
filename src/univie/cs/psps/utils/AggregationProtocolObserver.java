@@ -34,8 +34,9 @@ import peersim.core.Control;
 import peersim.core.Network;
 
 /**
- * Observes the results of an {@link AggregationProtocol} and determines when to
- * stop the execution of the protocol.
+ * Observes an {@link AggregationProtocol} during the simulation, prints the
+ * results to the standard output or to a file for plotting, and determines when
+ * to stop the simulation.
  * <p>
  * This control expects the following parameters in the configuration file:
  * <p>
@@ -64,9 +65,6 @@ public class AggregationProtocolObserver implements Control
 	/**
 	 * The standard constructor called by the simulator, reading parameters from
 	 * the configuration file.
-	 * 
-	 * @param prefix
-	 *            the prefix for this control in the configuration file.
 	 */
 	public AggregationProtocolObserver(String prefix) throws FileNotFoundException
 	{
@@ -79,6 +77,9 @@ public class AggregationProtocolObserver implements Control
 		clusters = Configuration.getInt(VAR_CLUSTERS, 1);
 	}
 
+	/**
+	 * Prints the results and checks whether the simulation should stop.
+	 */
 	@Override
 	public boolean execute()
 	{

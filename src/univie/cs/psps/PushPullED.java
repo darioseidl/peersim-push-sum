@@ -38,6 +38,13 @@ import univie.cs.psps.utils.ProtocolUtils;
  * <p>
  * In each step, each node selects a random neighbor and sets the estimate of
  * the neighbor and of itself to the mean of their current estimates.
+ * <p>
+ * This protocol expects the following additional parameters in the
+ * configuration file:
+ * <p>
+ * <blockquote>{@code step} - the time between timer messages signalling the
+ * start of the next step<br/>
+ * </blockquote>
  * 
  * @author Dario Seidl
  * 
