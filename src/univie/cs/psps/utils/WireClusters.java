@@ -27,25 +27,38 @@ import peersim.dynamics.WireGraph;
 import peersim.graph.Graph;
 import peersim.graph.UndirectedGraph;
 
+/**
+ * Creates a network topology of several clusters of nodes, which are fully
+ * connected within the cluster, but any two clusters are only connected over a
+ * single edge.
+ * 
+ * @author Dario Seidl
+ * 
+ */
 public class WireClusters extends WireGraph
 {
 	private static final String PAR_CLUSTERS = "clusters";
 
 	private final int clusters;
 
+	/**
+	 * The standard constructor called by the simulator, reading parameters from
+	 * the configuration file.
+	 */
 	public WireClusters(String prefix)
 	{
 		super(prefix);
 		clusters = Configuration.getInt(prefix + "." + PAR_CLUSTERS);
 	}
 
+	/**
+	 * Adds the edges to the graph.
+	 */
 	@Override
 	public void wire(Graph g)
 	{
 		if (g.size() % clusters != 0)
-		{
-			throw new IllegalArgumentException("Graph size must be divisible by number of clusters.");
-		}
+			throw new IllegalArgumentException("Graph size must be divisible by the number of clusters.");
 
 		int nodesPerCluster = g.size() / clusters;
 

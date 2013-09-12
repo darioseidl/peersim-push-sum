@@ -31,8 +31,8 @@ import peersim.graph.GraphIO;
 import peersim.reports.GraphObserver;
 
 /**
- * An extension of {@link GraphObserver} to save the network graph to a .dot
- * file, intended for plotting with Graphviz.
+ * A subclass of {@link GraphObserver} to save the network graph to a .dot file,
+ * intended for plotting with Graphviz.
  * <p>
  * This control expects the following parameters in the configuration file:
  * <p>
@@ -52,9 +52,6 @@ public class GraphWriter extends GraphObserver
 	/**
 	 * The standard constructor called by the simulator, reading parameters from
 	 * the configuration file.
-	 * 
-	 * @param prefix
-	 *            the prefix for this control in the configuration file.
 	 */
 	public GraphWriter(String prefix)
 	{
