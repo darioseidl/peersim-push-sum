@@ -35,7 +35,7 @@ import univie.cs.psps.utils.AggregationProtocol;
 import univie.cs.psps.utils.ProtocolUtils;
 
 /**
- * An event-driven implementaion of the Push-Sum protocol.
+ * An event-driven implementation of the Push-Sum protocol.
  * <p>
  * In each step, each node sums up the received values and weights of the
  * previous step and then sends half of its value and half of its weight to a
@@ -44,7 +44,7 @@ import univie.cs.psps.utils.ProtocolUtils;
  * This protocol expects the following additional parameters in the
  * configuration file:
  * <p>
- * <blockquote>{@code step} - the time between timer messages signalling the
+ * <blockquote>{@code step} - the time between timer messages signaling the
  * start of the next step<br/>
  * </blockquote>
  * 
@@ -76,7 +76,7 @@ public class PushSumED implements AggregationProtocol, EDProtocol
 	@Override
 	public void processEvent(Node self, int protocolID, Object event)
 	{
-		// a timer message signalling the start of a new step
+		// a timer message signaling the start of a new step
 		if (event instanceof TimerMessage)
 		{
 			Node neighbor = ProtocolUtils.getRandomNeighbor(self, protocolID);

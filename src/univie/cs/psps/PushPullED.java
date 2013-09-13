@@ -42,7 +42,7 @@ import univie.cs.psps.utils.ProtocolUtils;
  * This protocol expects the following additional parameters in the
  * configuration file:
  * <p>
- * <blockquote>{@code step} - the time between timer messages signalling the
+ * <blockquote>{@code step} - the time between timer messages signaling the
  * start of the next step<br/>
  * </blockquote>
  * 
@@ -72,7 +72,7 @@ public class PushPullED implements AggregationProtocol, EDProtocol
 			return;
 		}
 
-		// a timer message signalling the start of a new step
+		// a timer message signaling the start of a new step
 		else if (event instanceof TimerMessage)
 		{
 			Node neighbor = ProtocolUtils.getRandomNeighbor(self, protocolID);

@@ -37,7 +37,7 @@ import univie.cs.psps.utils.ProtocolUtils;
  * This implementation is based on a very simplified model in which we take
  * advantage of two kinds of synchronization: cycles and synchronous
  * communication. Instead of sending a message and waiting for a response, we
- * update the estimates of the communicating nodes directly and simultanously.
+ * update the estimates of the communicating nodes directly and simultaneously.
  * 
  * @author Dario Seidl
  * 
