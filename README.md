@@ -66,8 +66,8 @@ To run the simulations, use the following commands
 	ant run-pp-ed
 	ant run-ps-ed
 
-With Gnuplot installed and the binary in your path, the following command 
-will run several simulations and plot the results:
+With [Gnuplot](http://www.gnuplot.info/) installed and the binary in your path,
+the following command will run several simulations and plot the results:
 
 	ant all-plots
 
@@ -76,14 +76,15 @@ the gnuplot_bin ant property. For example, on Windows
 
 	ant -Dgnuplot_bin="C:\Program Files\gnuplot\bin\gnuplot.exe" all-plots
 
-With Graphviz installed, you can plot the different network topologies using
+With [Graphviz](http://www.graphviz.org/) installed, you can plot the 
+different network topologies using
 
 	ant all-graphs
 
 You can specify the location of the Graphviz dot binary with the 
-graphviz_bin property.
+graphviz_bin property:
 
-	ant -Dgraphviz_bin="C:\Program Files\Graphviz\dot.exe" all-graphs
+	ant -Dgraphviz_bin="C:\Program Files\Graphviz2.34\dot.exe" all-graphs
 
 
 
