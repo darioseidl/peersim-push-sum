@@ -78,7 +78,7 @@
 	<condition property="gnuplot_bin" value="gnuplot.exe" else="gnuplot">
 		<os family="windows"/>
 	</condition>
-
+	
     <target name="-sim" depends="build">
         <java classname="peersim.rangesim.RangeSimulator" classpathref="classpath" failonerror="true" fork="yes">
         	<arg value="config/${type}.config"/>
@@ -176,6 +176,10 @@
 	
 	<!-- === graphviz targets === -->
 	
+	<condition property="graphviz_bin" value="dot.exe" else="dot">
+		<os family="windows"/>
+	</condition>
+	
     <target name="-sim-graph" depends="build">
 		<mkdir dir="plot"/>
         <java classname="peersim.Simulator" classpathref="classpath" failonerror="true" fork="yes">
@@ -189,7 +193,7 @@
     </target>
 	
 	<target name="-plot-graph" depends="-sim-graph">
-		<exec executable="dot">
+		<exec executable="${graphviz_bin}">
 			<arg value="-Kcirco"/>
 			<arg value="-T${ext}"/>
 			<arg value="-o${img}"/>
