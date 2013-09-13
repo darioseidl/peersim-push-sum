@@ -9,7 +9,9 @@ aggregates, such as the mean, among all nodes in the network. Such protocols
 are fully decentralized, based on exchanging messages with randomly selected 
 neighbors, and require no knowledge about the network topology.
 
-PeerSim [3] is an open-source, peer-to-peer network simulator, written in Java.
+PeerSim [3] is an open-source, peer-to-peer network simulator, written in 
+Java. You can learn more about it at the [PeerSim 
+website](http://peersim.sourceforge.net/).
 
 We study the behavior of the protocols in simplified cycle-driven and more 
 realistic event-driven simulations.
@@ -32,7 +34,7 @@ archive and place the peersim-1.0.5 folder in the lib folder of this project.
 You can import the project in Eclipse, use the ant buildfile to compile and 
 run the examples, or run the simulator directly.
 
-The PeerSim simulator (peersim.Simulator) always expects a configutation 
+The PeerSim simulator always expects a configuration 
 file as parameter. The configuration files for our simulations can be found 
 in the config folder.
 
@@ -53,7 +55,7 @@ To see a list of all available targets, use
 
 	ant -projecthelp
 
-To build the project and to generate the javadocs, use
+To build the project and to generate the Javadocs, use
 
 	ant build, docs
 
@@ -69,22 +71,34 @@ will run several simulations and plot the results:
 
 	ant all-plots
 
+If the Gnuplot binary is not in your path, you can specify the location in 
+the gnuplot_bin ant property. For example, on Windows
+
+	ant -Dgnuplot_bin="C:\Program Files\gnuplot\bin\gnuplot.exe" all-plots
+
 With Graphviz installed, you can plot the different network topologies using
 
 	ant all-graphs
+
+You can specify the location of the Graphviz dot binary with the 
+graphviz_bin property.
+
+	ant -Dgraphviz_bin="C:\Program Files\Graphviz\dot.exe" all-graphs
 
 
 
 References
 --------------------------------------------------------------------------------
 
-[1]
+[1] M. Jelasity, A. Montresor and O. Babaoglu, "Gossip-based aggregation in 
+large dynamic networks". In ACM Transactions on Computer Systems 23, 3, 
+pages 219–252, August, 2005.
 
 [2] D. Kempe, A. Dobra and J. Gehrke, "Gossip-based Computation of Aggregate 
-Information" In Proc. of the 44th Annual IEEE Symposium on Foundations of 
-Computer Science (FOCS '03), pages 482–491, October, 2003.
+Information". In Proceedings of the 44th Annual IEEE Symposium on Foundations of 
+Computer Science (FOCS'03), pages 482–491. October, 2003.
 
-[3] A. Montresor and M. Jelasity, "PeerSim: A Scalable P2P Simulator" 
-In Proc. of the 9th Int. Conference on Peer-to-Peer (P2P’09), pages 99–100,
-September 2009.
+[3] A. Montresor and M. Jelasity, "PeerSim: A Scalable P2P Simulator". In 
+Proceedings of the 9th Int. Conference on Peer-to-Peer (P2P'09), pages 
+99–100, September 2009.
 
