@@ -24,7 +24,6 @@ package univie.cs.psps;
 
 import peersim.config.Configuration;
 import peersim.config.FastConfig;
-import peersim.core.CommonState;
 import peersim.core.Node;
 import peersim.edsim.EDProtocol;
 import peersim.edsim.EDSimulator;
@@ -98,7 +97,7 @@ public class PushSumED implements AggregationProtocol, EDProtocol
 			}
 
 			// schedule a timer message for the next step
-			EDSimulator.add(CommonState.r.nextInt(stepSize), new TimerMessage(), self, protocolID);
+			EDSimulator.add(stepSize, new TimerMessage(), self, protocolID);
 
 		}
 		// a message from a neighbor
