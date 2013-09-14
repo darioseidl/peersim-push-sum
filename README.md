@@ -71,6 +71,8 @@ the following command will run several simulations and plot the results:
 
 	ant all-plots
 
+The simulation results and the plots will be saved to the plot folder.
+
 If the Gnuplot binary is not in your path, you can specify the location in 
 the gnuplot_bin ant property. For example, on Windows
 
@@ -84,7 +86,7 @@ different network topologies using
 You can specify the location of the Graphviz dot binary with the 
 graphviz_bin property:
 
-	ant -Dgraphviz_bin="C:\Program Files\Graphviz2.34\dot.exe" all-graphs
+	ant -Dgraphviz_bin="C:\Program Files\Graphviz2.34\bin\dot.exe" all-graphs
 
 
 
